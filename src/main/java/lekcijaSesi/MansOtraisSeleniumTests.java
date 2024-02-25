@@ -35,7 +35,7 @@ public class MansOtraisSeleniumTests extends BaseTest{
 
     @Test
     public void wrongCredentialsLoginTest() throws InterruptedException {
-        attemptToLogin("emilysinas1231dasdr@gmail.com","asdasdasdasda#");
+        attemptToLogin("emilysinas1231dasdr@gmail.com","asdas#");
 
         WebElement emailFieldErrorMessage = driver.findElement(By.className("invalid-feedback"));
         Assert.assertEquals(emailFieldErrorMessage.getText(),"These credentials do not match our records.","Wrong credential message");

@@ -53,7 +53,7 @@ public class BrowserNavigation extends BaseTest {
 
         List<WebElement> cookiebanners = driver.findElements(By.id("cookiebanner"));
         Assert.assertEquals(cookiebanners.size(),0);
-
+        System.out.println("Hello world");
         Thread.sleep(6000);
     }
 
@@ -65,7 +65,7 @@ public class BrowserNavigation extends BaseTest {
 
         driver.findElement(By.xpath("//div[@class='cookies_wrapper']//button[@widget-attachpoint='agree']")).click();
 
-        Assert.assertFalse(cookieBlock.isDisplayed(),"Cookie block is  displayed");
+        Assert.assertFalse(cookieBlock.isDisplayed(),"Cookie blocks ir redzams");
 
 
     }

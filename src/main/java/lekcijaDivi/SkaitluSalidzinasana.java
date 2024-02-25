@@ -11,7 +11,6 @@ public class SkaitluSalidzinasana {
         }  else if(i==20){
             System.out.println("Skaitlis ir 20");
         } else {
-            System.out.println("skaitlis ir nezinams");
         }
     }
 }
