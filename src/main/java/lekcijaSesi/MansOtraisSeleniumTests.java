@@ -21,6 +21,7 @@ public class MansOtraisSeleniumTests extends BaseTest{
 
         loginEmailInput.sendKeys(email);
         loginPasswordInput.sendKeys(password);
+        System.out.println("izmainas prieks zarosanas");
         loginButton.click();
     }
 
