@@ -2,6 +2,7 @@ package lekcijaSesi;
 
 import java.util.List;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -10,6 +11,34 @@ import org.testng.annotations.Test;
 import lekcijaSesi.pageObjects1a.OneALandingPage;
 
 public class BrowserNavigation extends BaseTest {
+
+    @Test
+    public void  testJavascriptExecutor() throws InterruptedException {
+        driver.get("https://www.delfi.lv/");
+        JavascriptExecutor javascriptExecutor = (JavascriptExecutor) driver;
+        javascriptExecutor.executeScript("window.scrollBy(0,600)");
+        Thread.sleep(2000);
+        javascriptExecutor.executeScript("window.scrollBy(0,600)");
+        Thread.sleep(2000);
+        javascriptExecutor.executeScript("window.scrollBy(0,-600)");
+        Thread.sleep(2000);
+        javascriptExecutor.executeScript("window.scrollBy(0,-600)");
+        WebElement cookieAcceptButton = driver.findElement(By.id("cookiescript_accept"));
+        String cookieButtonText = (String) javascriptExecutor.executeScript("return arguments[0].innerHTML",cookieAcceptButton);
+
+        System.out.println(cookieButtonText);
+
+        javascriptExecutor.executeScript("arguments[0].click()",cookieAcceptButton);
+        Thread.sleep(2000);
+        WebElement delfiFooter = driver.findElement(By.className("footer-menu--primary"));
+        javascriptExecutor.executeScript("arguments[0].scrollIntoView()",delfiFooter);
+        Thread.sleep(2000);
+
+
+
+
+    }
+
     @Test
     public void testBrowserNavigation() throws InterruptedException {
         driver.get("https://www.1a.lv/");
@@ -22,7 +51,6 @@ public class BrowserNavigation extends BaseTest {
         for (WebElement listOnInputField : listOnInputFields) {
             listOnInputField.sendKeys("Juris");
         }
-
 
         //back
         driver.navigate().back();
@@ -41,32 +69,31 @@ public class BrowserNavigation extends BaseTest {
         driver.get("https://www.1a.lv/");
         WebElement acceptAllCookiesButton = driver.findElement(By.id("CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll"));
         WebElement cookieBanner = driver.findElement(By.id("cookiebanner"));
-        Assert.assertTrue(cookieBanner.isDisplayed(),"Cookie banner is not displayed");
+        Assert.assertTrue(cookieBanner.isDisplayed(), "Cookie banner is not displayed");
 
         System.out.println(cookieBanner.getTagName());
-        Assert.assertEquals(cookieBanner.getCssValue("display"),"block");
+        Assert.assertEquals(cookieBanner.getCssValue("display"), "block");
 
         acceptAllCookiesButton.click();
 
-        Assert.assertFalse(cookieBanner.isDisplayed(),"Cookie banner is displayed");
-        Assert.assertEquals(cookieBanner.getCssValue("display"),"none");
+        Assert.assertFalse(cookieBanner.isDisplayed(), "Cookie banner is displayed");
+        Assert.assertEquals(cookieBanner.getCssValue("display"), "none");
 
         List<WebElement> cookiebanners = driver.findElements(By.id("cookiebanner"));
-        Assert.assertEquals(cookiebanners.size(),0);
+        Assert.assertEquals(cookiebanners.size(), 0);
         System.out.println("Hello world");
         Thread.sleep(6000);
     }
 
     @Test
-    public void test220cookies(){
+    public void test220cookies() {
         driver.get("https://220.lv/lv/");
         WebElement cookieBlock = driver.findElement(By.className("cookies_wrapper"));
-        Assert.assertTrue(cookieBlock.isDisplayed(),"Cookie block is not displayed");
+        Assert.assertTrue(cookieBlock.isDisplayed(), "Cookie block is not displayed");
 
         driver.findElement(By.xpath("//div[@class='cookies_wrapper']//button[@widget-attachpoint='agree']")).click();
 
-        Assert.assertFalse(cookieBlock.isDisplayed(),"Cookie blocks ir redzams");
-
+        Assert.assertFalse(cookieBlock.isDisplayed(), "Cookie blocks ir redzams");
 
     }
 
@@ -77,12 +104,11 @@ public class BrowserNavigation extends BaseTest {
 
         List<WebElement> languageElements = driver.findElements(By.xpath("//li[contains(@class,'language-switcher')]/a"));
 
-        Assert.assertEquals(oneALandingPage.cookieBanner.getAttribute("lang"),"lv");
-//        oneALandingPage.switchLanguage("RU");
+        Assert.assertEquals(oneALandingPage.cookieBanner.getAttribute("lang"), "lv");
+        //        oneALandingPage.switchLanguage("RU");
         languageElements.get(1).click();
         Thread.sleep(5000);
-        Assert.assertEquals(oneALandingPage.cookieBanner.getAttribute("lang"),"ru");
-
+        Assert.assertEquals(oneALandingPage.cookieBanner.getAttribute("lang"), "ru");
 
     }
 
